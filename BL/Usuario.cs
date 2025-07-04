@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DL;
+using ML;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -125,6 +127,78 @@ namespace BL
                 result.ErrorMessage = ex.Message;
                 result.Ex = ex;
                 Console.WriteLine(ex);
+            }
+            return result;
+        }
+
+        public static ML.Result GetAll()
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (LSanchezProyectoEntities context = new LSanchezProyectoEntities())
+                {
+                    var listusuarios = context.Usuarios.ToList();
+
+                    result.Objects = new List<object>();
+
+                    foreach (var usuarioDB in listusuarios)
+                    {
+                        ML.Usuario usuario = new ML.Usuario();
+                        usuario.IdUsuario = usuarioDB.IdUsuario;
+                        usuario.Nombre = usuarioDB.Nombre;
+                        usuario.Apellido = usuarioDB.Apellido;
+                        usuario.FechaNacimiento = Convert.ToString(usuarioDB.FechaNacimiento);
+
+                        result.Objects.Add(usuario);
+                    }
+
+                    result.Correct = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
+
+        public static ML.Result Delete(int IdUsuario)
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using (LSanchezProyectoEntities conn = new LSanchezProyectoEntities())
+                {
+                    var query = (from a in conn.Usuarios where a.IdUsuario == IdUsuario select a).SingleOrDefault();
+
+
+                    if (query != null)
+                    {
+                        conn.Usuarios.Remove(query);
+                        conn.SaveChanges();
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se encontro el usuario a Eliminar";
+                    }
+
+
+                    /*context.Usuarios.Remove(query);
+                    context.SaveChanges();
+                    result.Correct = true;*/
+                }
+            }
+
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
             }
             return result;
         }
