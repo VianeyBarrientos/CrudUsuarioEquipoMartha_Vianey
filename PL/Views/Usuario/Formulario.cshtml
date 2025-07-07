@@ -1,0 +1,55 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "Formulario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div clss="row">
+            <div class="col-md-6">
+                @Html.ActionLink("+", "Formulario", "Usuario", new { @class = "btn btn-success" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h5>Ingrese los datos del Usuario:</h5>
+                <hr />
+            </div>
+        </div>
+        @using (Html.BeginForm("Formulario", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            <div class="row">
+                <div class="col-4">
+                    @Html.LabelFor(model => model.IdUsuario, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.IdUsuario, new { @class = "form-control" })
+                </div>
+                <div class="col-4">
+                    @Html.LabelFor(model => model.Nombre, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "Nombre" })
+                </div>
+                <div class="col-4">
+                    @Html.LabelFor(model => model.Apellido, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Apellido, new { @class = "form-control", @id = "Apellido" })
+                </div>
+                <div class="col-4">
+                    @Html.LabelFor(model => model.FechaNacimiento, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.FechaNacimiento, new { @class = "form-control", @id = "FechaNacimiento" })
+                </div>
+            </div>
+
+            <input type="submit" value="Guardar" class="btn btn-success" />
+        }
+    </div>
+</div>
+
+@*<h2>Formulario</h2>*@
+
