@@ -13,6 +13,11 @@ namespace PL.Controllers
         {
             ML.Usuario usuario = new ML.Usuario();
             ML.Result result = BL.Usuario.GetAll();
+            if (result.Correct)
+            {
+                usuario.Usuarios = result.Objects.ToList();
+            }
+
 
             return View(usuario);
         }
@@ -49,7 +54,7 @@ namespace PL.Controllers
             }
             else
             {
-                ML.Result result = BL.Usuario.Update(usuario);k
+                ML.Result result = BL.Usuario.Update(usuario);
             }
             return View();
         }
