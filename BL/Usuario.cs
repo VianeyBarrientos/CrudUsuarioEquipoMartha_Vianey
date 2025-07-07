@@ -24,7 +24,7 @@ namespace BL
 
                     usuarioDL.Nombre = usuario.Nombre;
                     usuarioDL.Apellido = usuario.Apellido;
-                    usuarioDL.FechaNacimiento = DateTime.ParseExact(usuario.FechaNacimiento, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                    usuarioDL.FechaNacimiento = DateTime.ParseExact(usuario.FechaNacimiento, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
                     context.Usuarios.Add(usuarioDL);
                     int rowsAffected = context.SaveChanges();
@@ -63,7 +63,7 @@ namespace BL
                     {
                         query.Nombre = usuario.Nombre;
                         query.Apellido = usuario.Apellido;
-                        query.FechaNacimiento = DateTime.ParseExact(usuario.FechaNacimiento, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        query.FechaNacimiento = DateTime.ParseExact(usuario.FechaNacimiento, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
                         int rowsAffected = context.SaveChanges();
                         if (rowsAffected > 0)

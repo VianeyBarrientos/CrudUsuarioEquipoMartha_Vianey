@@ -18,12 +18,6 @@ namespace PL.Controllers
                 usuario.Usuarios = result.Objects.ToList();
             }
 
-
-            if(result.Correct)
-            {
-                usuario.Usuarios = result.Objects.ToList();
-            }
-
             return View(usuario);
         }
         [HttpGet]
@@ -37,31 +31,46 @@ namespace PL.Controllers
         }
 
         [HttpGet]
-        public ActionResult Formulario(int IdUSuario) //GetById
+        public ActionResult Formulario(int? IdUsuario) //GetById
         {
             ML.Usuario usuario = new ML.Usuario();
             
 
-            if(IdUSuario > 0)
+            if(IdUsuario > 0)
             {
-                ML.Result result = BL.Usuario.GetById(IdUSuario);
+                ML.Result result = BL.Usuario.GetById(IdUsuario.Value);
+
+                if(result.Correct == true)
+                {
+                    usuario =(ML.Usuario) result.Object;
+                }
 
             }
-            return View();
+
+            return View(usuario);
         }
 
        [HttpPost]
        public ActionResult Formulario (ML.Usuario usuario)
         {
+            ML.Result result = new ML.Result();
             if(usuario.IdUsuario == 0)
             {
-                ML.Result result = BL.Usuario.Add(usuario);
+                result = BL.Usuario.Add(usuario);
+                if (result.Correct)
+                {
+                    return RedirectToAction("GetAll");
+                }
             }
             else
             {
-                ML.Result result = BL.Usuario.Update(usuario);
+                result = BL.Usuario.Update(usuario);
+                if (result.Correct)
+                {
+                    return RedirectToAction("GetAll");
+                }
             }
-            return View();
+            return View(usuario);
         }
     }
 }
