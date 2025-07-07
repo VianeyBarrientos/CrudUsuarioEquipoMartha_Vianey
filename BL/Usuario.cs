@@ -12,7 +12,7 @@ namespace BL
 {
     public class Usuario
     {
-        public ML.Result Add(ML.Usuario usuario)
+        public static  ML.Result Add(ML.Usuario usuario)
         {
             ML.Result result = new ML.Result();
 
@@ -49,7 +49,7 @@ namespace BL
             return result;
         }
 
-        public ML.Result Update(ML.Usuario usuario)
+        public static ML.Result Update(ML.Usuario usuario)
         {
             ML.Result result = new ML.Result();
 
@@ -93,7 +93,7 @@ namespace BL
             return result;  
         }
 
-        public ML.Result GetById(int IdUsuario)
+        public static ML.Result GetById(int IdUsuario)
         {
             ML.Result result = new ML.Result();
             try
