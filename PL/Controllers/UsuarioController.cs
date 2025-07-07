@@ -19,6 +19,11 @@ namespace PL.Controllers
             }
 
 
+            if(result.Correct)
+            {
+                usuario.Usuarios = result.Objects.ToList();
+            }
+
             return View(usuario);
         }
         [HttpGet]
