@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ML;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -31,29 +32,28 @@ namespace PL.Controllers
         }
 
         [HttpGet]
-        public ActionResult Formulario(int? IdUsuario) //GetById
-        {
-            ML.Usuario usuario = new ML.Usuario();
-            
+         public ActionResult Formulario(int? IdUsuario) //GetById
+         {
+             ML.Usuario usuario = new ML.Usuario();
 
-            if(IdUsuario > 0)
-            {
-                ML.Result result = BL.Usuario.GetById(IdUsuario.Value);
 
-                if(result.Correct == true)
+             if(IdUsuario > 0)
+             {
+                 ML.Result result = BL.Usuario.GetById(IdUsuario.Value);
+
+                if (result.Correct == true)
                 {
-                    usuario =(ML.Usuario) result.Object;
+                    usuario = (ML.Usuario)result.Object;
                 }
-
             }
+             return View();
+         }
 
-            return View(usuario);
-        }
 
-       [HttpPost]
+        [HttpPost]
        public ActionResult Formulario (ML.Usuario usuario)
         {
-            ML.Result result = new ML.Result();
+             
             if(usuario.IdUsuario == 0)
             {
                 result = BL.Usuario.Add(usuario);
@@ -64,13 +64,12 @@ namespace PL.Controllers
             }
             else
             {
-                result = BL.Usuario.Update(usuario);
-                if (result.Correct)
-                {
-                    return RedirectToAction("GetAll");
-                }
+                ML.Result result = BL.Usuario.Update(usuario);
+
             }
-            return View(usuario);
+
+            
+            return View();
         }
     }
 }
